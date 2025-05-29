@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => FavouritesProvider()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Guruh 2 app',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

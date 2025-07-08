@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:guruh3/models/post.dart';
-import 'package:guruh3/pages/post/home_page.dart';
-import 'package:guruh3/provider/bottom_nav_bar_provider.dart';
-import 'package:guruh3/provider/counter_provider.dart';
-import 'package:guruh3/provider/favourites_provider.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:guruh3/pages/splash_screen.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  Hive.registerAdapter(PostAdapter());
-  await Hive.openBox('postBox');
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
 
   runApp(const MyApp());
 }
@@ -21,22 +20,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => BottomNavBarProvider()),
-        ChangeNotifierProvider(create: (context) => CounterProvider()),
-        ChangeNotifierProvider(create: (context) => FavouritesProvider()),
-      ],
-      child: MaterialApp(
-        title: 'Guruh 2 app',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          fontFamily: GoogleFonts.acme().fontFamily,
+    return MaterialApp(
+      title: 'Guruh 2 app',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
         ),
-        home: HomePage(),
+        useMaterial3: true,
+        fontFamily: GoogleFonts.roboto().fontFamily,
       ),
+      home: SplashScreen(),
     );
   }
 }
+
+
+// AIzaSyAayLPug5Q-35OJkuYrpnelWNk2RLO_XqI
+

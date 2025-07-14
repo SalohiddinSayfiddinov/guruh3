@@ -5,7 +5,7 @@ import 'package:guruh3/core/widgets/app_buttons.dart';
 import 'package:guruh3/pages/auth/presentation/cubit/auth_cubit.dart';
 import 'package:guruh3/pages/auth/presentation/cubit/auth_state.dart';
 import 'package:guruh3/pages/auth/presentation/view/sign_up_page.dart';
-import 'package:guruh3/pages/home/presentation/view/home_page.dart';
+import 'package:guruh3/pages/splash_screen.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage(),
+                          builder: (context) => SplashScreen(),
                         ),
                       );
                     }

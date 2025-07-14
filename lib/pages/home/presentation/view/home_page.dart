@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:guruh3/pages/cart/data/repo/cart_repo.dart';
+import 'package:guruh3/pages/auth/presentation/cubit/auth_cubit.dart';
+import 'package:guruh3/pages/auth/presentation/view/login_page.dart';
+import 'package:guruh3/pages/cart/presentation/cart_page.dart';
+import 'package:guruh3/pages/cart/presentation/cubit/cart_cubit.dart';
 import 'package:guruh3/pages/home/data/models/category_model.dart';
 import 'package:guruh3/pages/home/presentation/cubit/vendors/vendors_categories_cubit.dart';
 import 'package:guruh3/pages/home/presentation/cubit/vendors/vendors_cubit.dart';
 import 'package:guruh3/pages/home/presentation/cubit/vendors/vendors_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:guruh3/pages/orders/presentation/cubit/order_cubit.dart';
+import 'package:guruh3/pages/orders/presentation/view/my_orders_page.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +30,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BlocProvider(
+                        create: (context) => CartCubit(),
+                        child: CartPage(),
+                      );
+                    },
+                  ),
+                );
+              },
+              icon: Icon(Icons.shopping_cart))
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -120,18 +142,43 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final result = await CartRepo().getCart();
-          print(result[0].quantity);
-          // final SharedPreferences prefs = await SharedPreferences.getInstance();
-          // final String? token = prefs.getString('token');
-          // if (token != null) {
-          //   print(token);
-          // } else {
-          //   print('Null keldi');
-          // }
-        },
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        spacing: 20.0,
+        children: [
+          FloatingActionButton(
+            heroTag: 'order',
+            onPressed: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return BlocProvider(
+                      create: (context) => OrderCubit(),
+                      child: MyOrdersPage(),
+                    );
+                  },
+                ),
+              );
+            },
+            child: Icon(Icons.shopping_bag),
+          ),
+          FloatingActionButton(
+            heroTag: 'logout',
+            onPressed: () async {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                          create: (context) => AuthCubit(),
+                          child: LoginPage(),
+                        )),
+                (route) => false,
+              );
+            },
+            child: Icon(Icons.logout),
+          ),
+        ],
       ),
     );
   }

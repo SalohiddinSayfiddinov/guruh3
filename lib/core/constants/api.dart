@@ -1,6 +1,6 @@
 class Api {
   Api._();
-  static const String baseUrl = 'https://fastapi-books-app.onrender.com';
+  static const String baseUrl = 'http://127.0.0.1:8000';
 
   // Endpoints
   static const String categories = '/categories';
@@ -9,4 +9,5 @@ class Api {
   static const String getCart = '$baseUrl/cart/';
   static const String postCart = '$baseUrl/cart/add';
   static const String postOrder = '$baseUrl/orders';
+  static const String profile = '$baseUrl/auth/profile';
 }

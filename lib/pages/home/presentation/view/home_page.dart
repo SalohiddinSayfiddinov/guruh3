@@ -8,8 +8,7 @@ import 'package:guruh3/pages/home/data/models/category_model.dart';
 import 'package:guruh3/pages/home/presentation/cubit/vendors/vendors_categories_cubit.dart';
 import 'package:guruh3/pages/home/presentation/cubit/vendors/vendors_cubit.dart';
 import 'package:guruh3/pages/home/presentation/cubit/vendors/vendors_state.dart';
-import 'package:guruh3/pages/orders/presentation/cubit/order_cubit.dart';
-import 'package:guruh3/pages/orders/presentation/view/my_orders_page.dart';
+import 'package:guruh3/pages/profile/presentation/view/profile_page.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
@@ -153,10 +152,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return BlocProvider(
-                      create: (context) => OrderCubit(),
-                      child: MyOrdersPage(),
-                    );
+                    return ProfilePage();
                   },
                 ),
               );

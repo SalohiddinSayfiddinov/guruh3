@@ -6,6 +6,12 @@
 	<string>Guruh3 needs access to your location while using the app.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Guruh3 needs access to your location even when the app is not in use.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Guruh3 needs access to your photo library to save and share images.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Guruh3 needs access to your camera to take photos and videos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Guruh3 needs access to your microphone to record audio.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

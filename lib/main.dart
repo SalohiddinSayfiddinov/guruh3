@@ -1,10 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:guruh3/pages/splash_screen.dart';
+import 'package:guruh3/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:guruh3/features/auth/presentation/pages/sign_up_page.dart';
+import 'package:guruh3/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -32,11 +39,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: GoogleFonts.roboto().fontFamily,
       ),
-      home: SplashScreen(),
+      home: BlocProvider(
+        create: (context) => AuthCubit(),
+        child: SignUpPage(),
+      ),
     );
   }
 }
-
-
-// AIzaSyAayLPug5Q-35OJkuYrpnelWNk2RLO_XqI
-

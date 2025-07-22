@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "346654546620",
+    "project_id": "guruh5",
+    "storage_bucket": "guruh5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346654546620:android:d3ee13570896aa8d1c4eb9",
+        "android_client_info": {
+          "package_name": "com.example.guruh3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS52r1ZC824hCXBTgx6OXMsvdriyACWUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346654546620:android:f8c3205ecc19d3a01c4eb9",
+        "android_client_info": {
+          "package_name": "com.example.guruh5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS52r1ZC824hCXBTgx6OXMsvdriyACWUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

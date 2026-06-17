@@ -3,6 +3,7 @@ import 'package:guruh3/features/post/provider/post_provider.dart';
 import 'package:guruh3/features/post/screen/post_screen.dart';
 import 'package:provider/provider.dart';
 
+/// Hello
 void main() {
   runApp(const MyApp());
 }

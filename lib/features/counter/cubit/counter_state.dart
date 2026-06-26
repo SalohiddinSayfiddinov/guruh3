@@ -1,15 +1,9 @@
-abstract class CounterState {}
+import 'dart:ui';
 
-class CounterInitial extends CounterState {
-  final int count = 0;
-}
+class TextChanged {
+  final bool loading;
+  final Color color;
+  final String text;
 
-class CounterLoading extends CounterState {}
-
-class CounterError extends CounterState {}
-
-class CounterSuccess extends CounterState {
-  final int count;
-
-  CounterSuccess(this.count);
+  TextChanged({required this.text, required this.color, this.loading = false});
 }

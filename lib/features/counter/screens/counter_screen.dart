@@ -11,39 +11,49 @@ class CounterScreen extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<CounterScreen> {
+  final controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<CounterCubit, CounterState>(
-        builder: (context, state) {
-          if (state is CounterInitial) {
-            return Center(
-              child: Text(
-                state.count.toString(),
-                style: TextStyle(fontSize: 40.0),
-              ),
+      appBar: AppBar(
+        title: BlocBuilder<CounterCubit, TextChanged>(
+          builder: (context, state) {
+            return Text(
+              '12341234'.split('').reversed.join(),
+              style: TextStyle(color: state.color),
             );
-          } else if (state is CounterLoading) {
-            return Center(child: CircularProgressIndicator.adaptive());
-          } else if (state is CounterError) {
-            return Center(
-              child: Text("Xatolik", style: TextStyle(fontSize: 40.0)),
-            );
-          } else if (state is CounterSuccess) {
-            return Center(
-              child: Text(
-                state.count.toString(),
-                style: TextStyle(fontSize: 40.0),
-              ),
-            );
-          }
-          return SizedBox();
-        },
+          },
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<CounterCubit>().qosh();
-        },
+      body: Center(
+        child: TextField(
+          controller: controller,
+          onChanged: (value) {
+            print(value.length);
+          },
+        ),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        spacing: 20.0,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              context.read<CounterCubit>().textniOzgartir(controller.text);
+            },
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              context.read<CounterCubit>().changeColor(Colors.green);
+            },
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              context.read<CounterCubit>().loadingniOzgartir();
+            },
+          ),
+        ],
       ),
     );
   }

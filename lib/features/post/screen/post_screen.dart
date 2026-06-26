@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:guruh3/features/post/cubit/post_cubit.dart';
+import 'package:guruh3/features/post/cubit/post_state.dart';
 import 'package:guruh3/features/post/model/post_model.dart';
 import 'package:guruh3/features/post/provider/post_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,114 +17,30 @@ class _PostScreenState extends State<PostScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PostProvider>().getPosts();
-    });
+    context.read<PostCubit>().getPosts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<PostProvider>(
-        builder: (context, provider, child) {
-          if (provider.isLoading) {
+      body: BlocBuilder<PostCubit, PostState>(
+        builder: (context, state) {
+          if (state.isLoading) {
             return Center(child: CircularProgressIndicator.adaptive());
-          } else if (provider.error != null) {
-            return Center(child: Text("ERROR: ${provider.error.toString()}"));
-          } else if (provider.posts != null) {
+          } else if (state.error != null) {
+            return Center(child: Text("ERROR: ${state.error.toString()}"));
+          } else if (state.posts.isEmpty) {
+            return Center(child: Text("No data"));
+          } else {
             return ListView.builder(
-              itemCount: provider.posts!.length,
+              itemCount: state.posts.length,
               itemBuilder: (context, index) {
                 return Card(
-                  child: ListTile(
-                    title: Text(provider.posts![index].title),
-                    trailing: Consumer<PostProvider>(
-                      builder: (context, provider, child) {
-                        return Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () async {
-                                await context.read<PostProvider>().updatePost(
-                                  Post(
-                                    userId: 1,
-                                    id: provider.posts![index].id,
-                                    title: 'title',
-                                    body: 'body',
-                                  ),
-                                );
-                                if (provider.updateError != null) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(provider.updateError!),
-                                    ),
-                                  );
-                                } else if (provider.isUpdated == true) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("Yangilandi")),
-                                  );
-                                }
-                              },
-                              icon:
-                                  provider.updatingId ==
-                                      provider.posts![index].id
-                                  ? CircularProgressIndicator.adaptive()
-                                  : Icon(Icons.edit),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                await context.read<PostProvider>().deletePost(
-                                  provider.posts![index].id,
-                                );
-                                if (provider.deleteError != null) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(provider.deleteError!),
-                                    ),
-                                  );
-                                } else if (provider.isDeleted == true) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("O'chirildi")),
-                                  );
-                                }
-                              },
-                              icon:
-                                  provider.deletingId ==
-                                      provider.posts![index].id
-                                  ? CircularProgressIndicator.adaptive()
-                                  : Icon(Icons.delete),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
+                  child: ListTile(title: Text(state.posts[index].title)),
                 );
               },
             );
           }
-          return Center(child: Text("Else"));
-        },
-      ),
-      floatingActionButton: Consumer<PostProvider>(
-        builder: (context, provider, child) {
-          return FloatingActionButton(
-            onPressed: () async {
-              await context.read<PostProvider>().updatePost(
-                Post(userId: 1, id: 1, title: 'title', body: 'body'),
-              );
-              if (provider.updateError != null) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text(provider.updateError!)));
-              } else if (provider.isUpdated == true) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Yangilandi")));
-              }
-            },
-            child: Icon(Icons.add),
-          );
         },
       ),
     );
